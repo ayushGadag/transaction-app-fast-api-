@@ -1,5 +1,5 @@
-from fastapi import FastAPI , HTTPException
-from pydantic import BaseModel , Field
+from fastapi import FastAPI , HTTPException # 'HTTPException' is a class in Fast-API
+from pydantic import BaseModel , Field # 'Feild' is function inside a paydantic
 
 app = FastAPI()
 
