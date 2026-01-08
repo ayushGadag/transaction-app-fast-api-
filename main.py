@@ -2,6 +2,11 @@ from fastapi import FastAPI , HTTPException # 'HTTPException' is a class in Fast
 from pydantic import BaseModel , Field # 'Feild' is function inside a paydantic
 from database import engine
 import models
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from database import get_db
+from models import TransactionDB
+
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
