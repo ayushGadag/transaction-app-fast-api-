@@ -1,7 +1,10 @@
 from fastapi import FastAPI , HTTPException # 'HTTPException' is a class in Fast-API
 from pydantic import BaseModel , Field # 'Feild' is function inside a paydantic
-
+from database import engine
+import models
 app = FastAPI()
+
+models.Base.metadata.create_all(bind=engine)
 
 class Transaction(BaseModel): #data iherit from basemodel this is class /BaseModel = Parent
     amount: float = Field(..., gt=0,le=1000) #amount greater than zero must be / 0 or -10 will be rejected
