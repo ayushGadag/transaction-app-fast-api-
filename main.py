@@ -30,6 +30,22 @@ def create_transaction(
         amount =transaction.amount,
         type = transaction.type
     )
+
+@app.get("/transactions") 
+def get_transactions(db: Session =Depends(get_db)):
+    transaction = db.query(TransactionDB).all()
+
+
+
+    return [
+
+        {
+            "id" :txn.id,
+            "amount": txn.amount,
+            "type": txn.type
+        }
+        for txn in transaction
+    ]  
     
     Db.add(new_txn)
     Db.commit()
