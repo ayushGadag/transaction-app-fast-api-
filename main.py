@@ -31,9 +31,9 @@ def create_transaction(
         type = transaction.type
     )
     
-    db.add(new_txn)
-    db.commit()
-    db.refresh(new_txn)
+    Db.add(new_txn)
+    Db.commit()
+    Db.refresh(new_txn)
 
     return {
         "status": "saved",
