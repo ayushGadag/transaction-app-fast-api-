@@ -16,14 +16,32 @@ class Transaction(BaseModel): #data iherit from basemodel this is class /BaseMod
     type: str
 
 @app.post("/transactions")
-def create_transaction(transaction: Transaction): ##Transaction : type{transaction} 
+def create_transaction(
+    transaction: Transaction,
+    Db: Session = Depends(get_db)):
+     ##Transaction : type{transaction} 
     if transaction.type not in ["credit", "debit"]:
         raise HTTPException(
             status_code=400,
             detail="transaction type must be 'debit' or a 'credit'"
         )
+    
+    new_txn= TransactionDB(
+        amount =transaction.amount,
+        type = transaction.type
+    )
+    
+    db.add(new_txn)
+    db.commit()
+    db.refresh(new_txn)
+
     return {
-        "status": "success",
-        "amount_received": transaction.amount,
-        "type": transaction.type
+        "status": "saved",
+        "id": new_txn.id,
+        "amount": new_txn.amount,
+        "type": new_txn.type
     }
+
+
+
+
